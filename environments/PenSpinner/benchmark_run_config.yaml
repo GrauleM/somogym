@@ -1,0 +1,33 @@
+env_id: PenSpinner-v0
+action_time: 0.005
+bullet_time_step: 0.001
+max_torque_rate: 80
+observation_flags:
+  object_pos:
+  # object_or:
+  object_or_quat:
+  target_position:
+  # target_orientation:
+  target_orientation_quat:
+  position_error:
+  # orientation_error:
+  orientation_error_quat:
+  object_velocity:
+  positions: 6
+  velocities: 6
+  # tip_pos:
+  # angles: 2
+  # curvatures: 2
+  applied_input_torques:
+  tip_pos_error_vector:
+reward_flags:
+  orientation_quat: -100
+  tip_end_position_error: -100
+  position: -100
+torque_multiplier: 80
+target_position_delta_range:
+  min: [ -0., -0., 0.0 ]
+  max: [ 0., 0., 0.0 ]
+target_orientation_delta_range:
+  min: [0.0, -0., 0.2]
+  max: [0.0, 0., 0.3]

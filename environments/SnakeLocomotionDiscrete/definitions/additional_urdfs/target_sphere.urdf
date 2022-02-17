@@ -1,0 +1,19 @@
+<robot name="box">
+
+  <link name="box">
+		<visual>
+		    <origin xyz="0 0 0." rpy="0 0 0"/>
+			<geometry>
+				<sphere radius=".35"/>
+			</geometry>
+			<material name="anotherOne">
+	       		<color rgba="0 0.8 0.3 1.0"/>
+	     	</material>
+		</visual>
+	          <inertial>
+          <mass value="0.0"/>
+          <inertia ixx=".0" ixy="0.0" ixz="0" iyy=".0" iyz="0.0" izz=".0"/>
+        </inertial>
+  </link>
+
+</robot>

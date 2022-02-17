@@ -1,0 +1,21 @@
+env_id: AntipodalGripper-v0
+action_time: 0.01
+bullet_time_step: 0.0004
+max_torque_rate: 50
+observation_flags:
+  box_pos:
+  box_or:
+  box_velocity:
+  positions: 20
+  velocities: 20
+  manipulator_box_dist:
+  # tip_pos:
+  # angles: 3
+  # curvatures: 5
+  applied_input_torques:
+  applied_input_height:
+reward_flags:
+  box_height: 10
+  manipulator_box_dist: -10
+torque_multiplier: 25
+planar_only: True

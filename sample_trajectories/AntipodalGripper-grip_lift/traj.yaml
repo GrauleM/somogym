@@ -1,0 +1,21 @@
+# Top-level settings
+settings:
+    traj_type: 'interp'  # Types include: 'waveform', 'interp', 'direct'
+
+
+# Place all of the type-specific settings in here
+config:
+    setpoints:
+        # [time, f1_0, f1_1, f2_0, f2_1, z_pos]
+        main:
+            - [ 0,   0,0,   0,0,   0]
+            - [ 1,   0,0,   0,0,   7.5]
+            - [ 2,   10,3,   10,3,  0]
+            - [ 3,   10,3,   10,3,  -10.0]
+            - [ 800, 10,3,   10,3,  -10.0]
+
+        prefix:
+            - [ 0.000,   0,0,  0,0,    0]
+
+        suffix:
+            - [ 1000,   0,0,  0,0,    0]

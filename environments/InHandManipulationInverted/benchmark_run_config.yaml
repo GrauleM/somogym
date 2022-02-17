@@ -1,0 +1,21 @@
+action_time: 0.01
+bullet_time_step: 0.0004
+env_id: InHandManipulationInverted-v0
+max_torque_rate: 130
+observation_flags:
+  box_pos:
+  box_or:
+  box_velocity:
+  positions: 10
+  velocities: 10
+  # tip_pos:
+  # angles: 3
+  # curvatures: 5
+  applied_input_torques:
+reward_flags:
+  z_rotation: 100
+  x_rotation: -1
+  y_rotation: -1
+  position: -1
+torque_multiplier: 65
+invert_hand: True

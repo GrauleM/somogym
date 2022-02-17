@@ -1,7 +1,17 @@
+somo_rl/user_settings.py
+# IDEs
+.idea/
+.vscode/
+
+# project specific stuff
+tests/tmp/
+
+# general python stuff
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*/__pycache__/
 *.py[cod]
-*$py.class
 
 # C extensions
 *.so
@@ -127,3 +137,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pytorch
+*.pt

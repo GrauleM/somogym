@@ -1,0 +1,125 @@
+# Manipulator Definition for BlockPusher, StationaryEETarget, BasicBehaviorCloning
+
+# Author: M. A. Graule
+# Date:   08/19/2021
+# Description:
+#     A manipulator with 4 active actuators
+
+# NOTE: Remember to scale your geometry, stiffnesses, positions, and forces
+# by the global scaling factor (usually 20x), but no need to scale masses.
+
+manipulator_name:      "continuum_manipulator"
+n_act:                 4
+
+# Define the actuators
+actuator_definitions:
+  - actuator_length:   2.5
+    n_segments:        5
+    planar_flag:       1
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type:      "stadium"
+      dimensions:      [1.,1.,0.5]
+      mass:            0.00294
+      inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+      material_color:  [0.10980392156862745, 0.3843137254901961, 0.8431372549019608, 1.0]
+      material_name:   "navyblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type:                "revolute"
+        axis:                      [1, 0, 0]
+        limits:                    [-3.141592, 3.141592, 100, 3]
+        spring_stiffness:          87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position:    0
+        joint_control_limit_force: 0.4
+
+  - actuator_length:   2.5
+    n_segments:        5
+    planar_flag:       1
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type:      "stadium"
+      dimensions:      [1.,1.,0.5]
+      mass:            0.00294
+      inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+      material_color:  [0.0, 0.2, 0.4, 1.0]
+      material_name:   "midnightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type:                "revolute"
+        axis:                      [1, 0, 0]
+        limits:                    [-3.141592, 3.141592, 100, 3]
+        spring_stiffness:          87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position:    0
+        joint_control_limit_force: 0.4
+
+  - actuator_length:   2.5
+    n_segments:        5
+    planar_flag:       1
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type:      "stadium"
+      dimensions:      [1.,1.,0.5]
+      mass:            0.00294
+      inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+      material_color:  [0.10980392156862745, 0.3843137254901961, 0.8431372549019608, 1.0]
+      material_name:   "navyblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type:                "revolute"
+        axis:                      [1, 0, 0]
+        limits:                    [-3.141592, 3.141592, 100, 3]
+        spring_stiffness:          87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position:    0
+        joint_control_limit_force: 0.4
+
+  - actuator_length:   2.5
+    n_segments:        5
+    planar_flag:       1
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type:      "stadium"
+      dimensions:      [1.,1.,0.5]
+      mass:            0.00294
+      inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+      material_color:  [0.0, 0.2, 0.4, 1.0]
+      material_name:   "midnightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type:                "revolute"
+        axis:                      [1, 0, 0]
+        limits:                    [-3.141592, 3.141592, 100, 3]
+        spring_stiffness:          87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position:    0
+        joint_control_limit_force: 0.4
+
+# Define the base link
+base_definition:
+  shape_type:      "box"
+  dimensions:      [1,2,1.0]
+  mass:            0.00294
+  inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+  material_color:  [0.10980392156862745, 0.3843137254901961, 0.8431372549019608, 1.0]
+  material_name:   "navyblue"
+
+
+# Define the tip link. For fingers, use this to define the fingertip.
+tip_definition:
+  shape_type:    "box"
+  dimensions:      [1,1,0.25]
+  mass:            0.00294
+  inertial_values: [0.0152488, 0, 0, 0.0152488, 0, 0.0152488]
+  material_color:  [0.0, 0.2, 0.4, 1.0]
+  material_name:   "midnightblue"

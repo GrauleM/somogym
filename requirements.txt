@@ -1,0 +1,8 @@
+gym==0.18.3
+pybullet==3.1.7
+sorotraj==0.14
+somo @ git+https://github.com/graulem/somo@84f25a742a0212e49694dd85030cc29fdf08ce3e
+pytest==6.2.4
+stable-baselines3==1.0
+torch==1.8.1
+pyquaternion==0.9.9

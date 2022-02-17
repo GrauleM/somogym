@@ -1,0 +1,26 @@
+action_time: 0.01
+bullet_time_step: 0.002 # may be safer to use 0.001 here, specially if complexity is added to the env
+env_id: PlanarReaching-v0
+max_torque_rate: 20
+observation_flags:
+  # values are num samples to collect per manipulator. Default is all available samples.
+  target_pos:
+  # target_or:
+  positions: 20
+  velocities: 20
+  # tip_pos:
+  tip_target_dist_vector:
+  # angles: 4
+  # curvatures: 4
+  applied_input_torques:
+reward_flags:
+  # values are weights to multiply each reward component by. Default is 1.
+  tip_target_dist: -10
+  bonus_at_0.5: 150
+  bonus_at_1: 100
+  bonus_at_2: 50
+torque_multiplier: 50
+target_start_pos: [0, 2.5, 8]
+target_start_or: [0.0, 0.0, 0.0]
+target_start_func: target_start_func_0
+gravity_factor: 0.25

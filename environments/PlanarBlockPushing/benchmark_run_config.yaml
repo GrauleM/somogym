@@ -1,0 +1,29 @@
+action_time: 0.01
+bullet_time_step: 0.001
+env_id: PlanarBlockPushing-v0
+max_torque_rate: 40
+observation_flags:
+  box_pos:
+  box_or:
+  box_target_dist_vector:
+  target_pos:
+  box_velocity:
+  positions: 20
+  velocities: 20
+  # tip_pos:
+  tip_box_dist_vector:
+  # manipulator_box_dist:
+  # angles: 4
+  # curvatures: 5
+  applied_input_torques:
+reward_flags:
+  # manipulator_box_dist: -1
+  # box_goal_dist_squared: -5
+  tip_box_dist: -10
+  box_target_dist: -10
+  bonus_at_0.5: 150
+  bonus_at_1: 100
+  bonus_at_2: 50
+torque_multiplier: 50
+box_start_pos: [3, 6.5, 0.6]
+target_pos: [5, 1, 0.5]

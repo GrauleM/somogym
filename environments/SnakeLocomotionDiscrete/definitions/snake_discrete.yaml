@@ -1,0 +1,280 @@
+# Manipulator Definition for BlockPusher, StationaryEETarget, BasicBehaviorCloning
+
+# Author: M. A. Graule
+# Date:   08/19/2021
+# Description:
+#     A manipulator with 4 active actuators
+
+# NOTE: Remember to scale your geometry, stiffnesses, positions, and forces
+# by the global scaling factor (usually 20x), but no need to scale masses.
+
+manipulator_name:      "snake_discrete"
+n_act:                 8
+
+# Define the actuators
+actuator_definitions:
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color: [0.24117647058823533, 0.7352941176470588, 0.7294117647058823, 1.0 ]
+      material_name: "teal"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color:  [0.1607843137254902, 0.49019607843137253, 0.88627450980392156, 1.0 ]
+      material_name:   "lightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color: [0.24117647058823533, 0.7352941176470588, 0.7294117647058823, 1.0 ]
+      material_name: "teal"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color:  [0.1607843137254902, 0.49019607843137253, 0.88627450980392156, 1.0 ]
+      material_name:   "lightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color: [0.24117647058823533, 0.7352941176470588, 0.7294117647058823, 1.0 ]
+      material_name: "teal"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color:  [0.1607843137254902, 0.49019607843137253, 0.88627450980392156, 1.0 ]
+      material_name:   "lightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color: [0.24117647058823533, 0.7352941176470588, 0.7294117647058823, 1.0 ]
+      material_name: "teal"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+
+  - actuator_length: 2.0
+    n_segments: 4
+    planar_flag: 0
+
+    # Define the link sub-unit.
+    # The link height (z-dimension) times n_segments must equal the actuator length
+    link_definition:
+      shape_type: "capsule"
+      dimensions: [ 0.5,0.4 ]
+      mass: 0.00294
+      inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+      material_color:  [0.1607843137254902, 0.49019607843137253, 0.88627450980392156, 1.0 ]
+      material_name:   "lightblue"
+
+    joint_definitions:
+      # Define joint type 1
+      - joint_type: "revolute"
+        axis: [ 1, 0, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+      - joint_type: "revolute"
+        axis: [ 0, 1, 0 ]
+        limits: [ -3.141592, 3.141592, 100, 3 ]
+        spring_stiffness: 87.4286 #69.9429  #151.92  #20000
+        joint_neutral_position: 0
+        joint_control_limit_force: 0.4
+
+# Define the base link
+base_definition:
+  shape_type: "capsule"
+  dimensions: [ 0.5,0.35 ]
+  mass: 0.00294
+  inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+  material_color: [0.24117647058823533, 0.7352941176470588, 0.7294117647058823, 1.0 ]
+  material_name: "teal"
+
+# Define the tip link. For fingers, use this to define the fingertip.
+tip_definition:
+  shape_type: "sphere"
+  dimensions: [0.39 ]
+  mass: 0.00294
+  inertial_values: [ 0.0152488, 0, 0, 0.0152488, 0, 0.0152488 ]
+  material_color: [ 0.1607843137254902, 0.49019607843137253, 0.88627450980392156, 1.0 ]
+  material_name: "lightblue"

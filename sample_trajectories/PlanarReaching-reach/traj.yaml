@@ -1,0 +1,20 @@
+# Top-level settings
+settings:
+    traj_type: 'interp'  # Types include: 'waveform', 'interp', 'direct'
+
+
+# Place all of the type-specific settings in here
+config:
+    setpoints:
+        # [time, act0, act1, act2, act3]
+        main:
+            - [ 0.0,   0, 0, 0, 0]
+            - [ 2,   -30, 30, 30, -10]
+            - [ 1000,   -30, 30, 30, -10]
+
+
+        prefix:
+            - [ 0.000,   0,0,  0,0]
+
+        suffix:
+            - [ 2000,   0, 0, 0, 0]

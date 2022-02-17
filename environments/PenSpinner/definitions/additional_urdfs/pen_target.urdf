@@ -1,0 +1,59 @@
+<robot name="pen">
+
+  <link name="base_link">
+         <visual>
+           <geometry>
+             <cylinder length="4.5" radius="0.4"/>
+           </geometry>
+           <material name="green">
+	       		<color rgba="0.011764705882352941, 0.9882352941176471, 0.5176470588235295 .45"/>
+           </material>
+         </visual>
+              <inertial>
+          <mass value="0.01"/>
+          <inertia ixx=".05" ixy="0.0" ixz="0" iyy=".05" iyz="0.0" izz=".05"/>
+        </inertial>
+       </link>
+    <link name="smallbox">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.1 0.25 0.1" />
+      </geometry>
+           <material name="green">
+	       		<color rgba="0.011764705882352941, 0.9882352941176471, 0.5176470588235295 .45"/>
+           </material>
+    </visual>
+    <inertial>
+      <mass value="0.0" />
+      <inertia ixx="0.0" ixy="0" ixz="0" iyy="0.0" iyz="0" izz="0.0" />
+    </inertial>
+  </link>
+    <joint name="base_link_to_smallball" type="fixed">
+    <parent link="base_link" />
+    <child link="smallbox" />
+    <origin xyz="0 0.25 2.25" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+  </joint>
+  <link name="smallbox_front">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 1.56" />
+      <geometry>
+        <box size="0.1 0.5 0.1" />
+      </geometry>
+           <material name="green">
+	       		<color rgba="0.011764705882352941, 0.9882352941176471, 0.5176470588235295 .45"/>
+           </material>
+    </visual>
+    <inertial>
+      <mass value="0.0" />
+      <inertia ixx="0.0" ixy="0" ixz="0" iyy="0.0" iyz="0" izz="0.0" />
+    </inertial>
+  </link>
+    <joint name="base_link_to_smallbox_front" type="fixed">
+    <parent link="base_link" />
+    <child link="smallbox_front" />
+    <origin xyz="0 0 -2.25" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+  </joint>
+</robot>
