@@ -1,7 +1,8 @@
 # SoMoGym
 
-SoMoGym (**So**ft**Mo**tion **Gym**) is an open-source framework that builds on [SoMo](https://github.com/GrauleM/somo). SoMoGym facilitates the training and testing of soft robot control policies on complex tasks in which robots interact with their environments, frequently making and breaking contact. We provide a set of standard benchmark tasks, spanning challenges of manipulation, locomotion, and navigation in environments both with and without obstacles. A detailed description of the SoMoGym benchmark tasks and the baseline control policies we developed for these tasks can be found in the accompanying [RA-L paper](https://ieeexplore.ieee.org/abstract/document/9707663) ([PDF](/papers/somogym.pdf)).
-## Codebase Structure Overview
+SoMoGym (**So**ft**Mo**tion **Gym**) is an open-source framework that builds on [SoMo](https://github.com/GrauleM/somo). SoMoGym facilitates the training and testing of soft robot control policies on complex tasks in which robots interact with their environments, frequently making and breaking contact. We provide a set of standard benchmark tasks, spanning challenges of manipulation, locomotion, and navigation in environments both with and without obstacles. A detailed description of the SoMoGym benchmark tasks and the baseline control policies we developed for these tasks can be found in the accompanying [RA-L paper](https://ieeexplore.ieee.org/abstract/document/9707663) ([PDF](/publications/somogym.pdf)). Interested users are also invited to watch our [video summary](/media/somogym_supplemental_video.mp4) to learn more.
+
+## Codebase Overview
 
 We define each task in its own SoMoGym "environment". Each SoMoGym environment is built upon the SomoEnv class, found in /environments/SomoEnv.py. SomoEnv inherits OpenAI Gym's base environment class, and is structured in the same manner. As a high level, it handles environment functionality that is general to every task: setting up the physics engine, making the OpenAI gym environment, observing state, stepping, and resetting. Each task's SoMoGym environment inherits SomoEnv, providing it with required task-specific parameters (i.e. action space) and augmenting it with any task-specific functionality (i.e. handling a box object).
 
@@ -51,7 +52,7 @@ To train and evaluate RL policies on SoMoGym environments, check out [SoMo-RL](h
 7. To upgrade to the newest version: `$ pip install git+https://github.com/graulem/somogym --upgrade`
 
 
-### Contributing
+## Contributing
 
 We're always happy for contributions, bug reports, feature requests, or other suggestions on how we can improve SoMoGym!
 
