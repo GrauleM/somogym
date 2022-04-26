@@ -193,7 +193,9 @@ class PenSpinner(SomoEnv.SomoEnv):
         )
         state = np.array([])
 
-        object_pos, object_or_quat = p.getBasePositionAndOrientation(self.object_id)
+        object_pos, object_or_quat = p.getBasePositionAndOrientation(
+            self.object_id, physicsClientId=self.physics_client
+        )
         object_or = p.getEulerFromQuaternion(object_or_quat)
 
         targ_pos, targ_or_quat = self.target_position, self.target_orientation
@@ -245,7 +247,9 @@ class PenSpinner(SomoEnv.SomoEnv):
 
         if "object_velocity" in obs_flags:
             object_velocity = np.array(
-                p.getBaseVelocity(bodyUniqueId=self.object_id)[0]
+                p.getBaseVelocity(
+                    bodyUniqueId=self.object_id, physicsClientId=self.physics_client
+                )[0]
             )
             state = np.concatenate((state, np.array(object_velocity)))
 
@@ -315,7 +319,7 @@ class PenSpinner(SomoEnv.SomoEnv):
 
             end_pos_target = np.array(
                 p.getLinkState(
-                    bodyUniqueId=self.target_id,
+                    bodyUniqueId=self.target_id,  # todo: why unexpected argument error?
                     linkIndex=0,
                     physicsClientId=self.physics_client,
                 )[0]
@@ -369,7 +373,9 @@ class PenSpinner(SomoEnv.SomoEnv):
         reward = 0
         # note: there are some challenges associated with using the quaternion distance for orientation error, see for example https://math.stackexchange.com/questions/90081/quaternion-distance
         if "orientation_quat" in reward_flags or "position" in reward_flags:
-            obj_pos, obj_or_quat = p.getBasePositionAndOrientation(self.object_id)
+            obj_pos, obj_or_quat = p.getBasePositionAndOrientation(
+                self.object_id, physicsClientId=self.physics_client
+            )
 
             if "position" in reward_flags:
                 position_reward = np.linalg.norm(
@@ -465,9 +471,12 @@ class PenSpinner(SomoEnv.SomoEnv):
             self.obj_start_pos,
             self.obj_start_or_quat,
             useFixedBase=0,
+            physicsClientId=self.physics_client,
         )
 
-        p.changeDynamics(self.object_id, -1, lateralFriction=1.0)
+        p.changeDynamics(
+            self.object_id, -1, lateralFriction=1.0, physicsClientId=self.physics_client
+        )
 
         # define target pose for the object
         target_urdf_path = os.path.join(
@@ -500,6 +509,7 @@ class PenSpinner(SomoEnv.SomoEnv):
             self.target_position,
             self.target_orientation,
             useFixedBase=1,
+            physicsClientId=self.physics_client,
         )
 
     def get_cam_settings(self):

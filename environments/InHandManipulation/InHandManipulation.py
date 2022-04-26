@@ -146,7 +146,9 @@ class InHandManipulation(SomoEnv.SomoEnv):
 
         obs, reward, done, info = super().step(action=action)
 
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_or = np.array(p.getEulerFromQuaternion(box_or_quat))
         self.box_pos, self.box_or = np.array(box_pos), np.array(box_or)
 
@@ -206,7 +208,9 @@ class InHandManipulation(SomoEnv.SomoEnv):
         state = np.array([])
 
         if "box_pos" in obs_flags or "box_or" in obs_flags:
-            box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+            box_pos, box_or_quat = p.getBasePositionAndOrientation(
+                self.box_id, physicsClientId=self.physics_client
+            )
             if "box_pos" in obs_flags:
                 state = np.concatenate((state, np.array(box_pos)))
             if "box_or" in obs_flags:
@@ -214,7 +218,11 @@ class InHandManipulation(SomoEnv.SomoEnv):
                 state = np.concatenate((state, np.array(box_or)))
 
         if "box_velocity" in obs_flags:
-            box_velocity = np.array(p.getBaseVelocity(bodyUniqueId=self.box_id)[0])
+            box_velocity = np.array(
+                p.getBaseVelocity(
+                    bodyUniqueId=self.box_id, physicsClientId=self.physics_client
+                )[0]
+            )
             state = np.concatenate((state, np.array(box_velocity)))
 
         if "positions" in obs_flags:
@@ -293,7 +301,9 @@ class InHandManipulation(SomoEnv.SomoEnv):
         # possible reward flags: z_rotation_step, z_rotation, x_rotation, y_rotation, position
         reward_flags = self.run_config["reward_flags"]
 
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_or = p.getEulerFromQuaternion(box_or_quat)
         box_pos, box_or = np.array(box_pos), np.array(box_or)
 
@@ -357,9 +367,15 @@ class InHandManipulation(SomoEnv.SomoEnv):
             self.box_start_pos,  # todo: change to snake case
             self.box_start_or_quat,
             useFixedBase=0,
+            physicsClientId=self.physics_client,
         )
         box_friction = np.random.uniform(*self.box_friction_range)
-        p.changeDynamics(self.box_id, -1, lateralFriction=box_friction)
+        p.changeDynamics(
+            self.box_id,
+            -1,
+            lateralFriction=box_friction,
+            physicsClientId=self.physics_client,
+        )
 
         palm_path = os.path.join(
             os.path.dirname(__file__), "definitions/additional_urdfs/palm.urdf"
@@ -372,7 +388,12 @@ class InHandManipulation(SomoEnv.SomoEnv):
             physicsClient=self.physics_client,
         )
 
-        p.changeDynamics(self.palmId, -1, lateralFriction=self.palm_friction)
+        p.changeDynamics(
+            self.palmId,
+            -1,
+            lateralFriction=self.palm_friction,
+            physicsClientId=self.physics_client,
+        )
 
         self.box_pos = self.box_start_pos
         self.box_or = self.box_start_or
@@ -397,7 +418,9 @@ class InHandManipulation(SomoEnv.SomoEnv):
         return opt_str, cam_distance, cam_yaw, cam_pitch, cam_xyz_target
 
     def check_success(self, binary=True):
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_or = p.getEulerFromQuaternion(box_or_quat)
         box_pos, box_or = np.array(box_pos), np.array(box_or)
 
@@ -407,3 +430,4 @@ class InHandManipulation(SomoEnv.SomoEnv):
         if box_pos[2] > 0:
             return np.degrees(box_or[2])
         return 0
+

@@ -171,7 +171,10 @@ class PlanarReaching(SomoEnv.SomoEnv):
         # TODO MAJOR: update observations. they were written for manipulator in xy plane, but now we are in a different plane
         # todo: related major todo: double check this in all envs
         if "target_pos" in obs_flags or "target_or" in obs_flags:
-            target_pos, target_or_quat = p.getBasePositionAndOrientation(self.target_id)
+            target_pos, target_or_quat = p.getBasePositionAndOrientation(
+                self.target_id,
+                physicsClientId=self.physics_client,
+            )
             if "target_pos" in obs_flags:
                 state = np.concatenate((state, np.array(target_pos)[1:]))
             if "target_or" in obs_flags:
@@ -180,7 +183,10 @@ class PlanarReaching(SomoEnv.SomoEnv):
 
         if "target_velocity" in obs_flags:
             target_velocity = np.array(
-                p.getBaseVelocity(bodyUniqueId=self.target_id)[0]
+                p.getBaseVelocity(
+                    bodyUniqueId=self.target_id,
+                    physicsClientId=self.physics_client,
+                )[0]
             )
             state = np.concatenate((state, np.array(target_velocity)[1:]))
 
@@ -259,7 +265,9 @@ class PlanarReaching(SomoEnv.SomoEnv):
 
             num_links = len(self.manipulators[0].flexible_joint_indices)
             last_link_state = p.getLinkState(
-                self.manipulators[0].bodyUniqueId, num_links - 1
+                self.manipulators[0].bodyUniqueId,
+                num_links - 1,
+                physicsClientId=self.physics_client,
             )
             tip_orientation_x = p.getEulerFromQuaternion(last_link_state[1])[0]
             orientation_error = self.target_x_orientation - tip_orientation_x
@@ -284,7 +292,10 @@ class PlanarReaching(SomoEnv.SomoEnv):
         reward_flags = self.run_config["reward_flags"]
 
         tip_pos = np.array(self.manipulators[0].get_backbone_positions())[-1][1:]
-        target_pos, target_or_quat = p.getBasePositionAndOrientation(self.target_id)
+        target_pos, target_or_quat = p.getBasePositionAndOrientation(
+            self.target_id,
+            physicsClientId=self.physics_client,
+        )
         dist = np.linalg.norm(tip_pos - target_pos[1:])
 
         reward = 0
@@ -318,7 +329,9 @@ class PlanarReaching(SomoEnv.SomoEnv):
 
             num_links = len(self.manipulators[0].flexible_joint_indices)
             last_link_state = p.getLinkState(
-                self.manipulators[0].bodyUniqueId, num_links - 1
+                self.manipulators[0].bodyUniqueId,
+                num_links - 1,
+                physicsClientId=self.physics_client,
             )
             tip_orientation_x = p.getEulerFromQuaternion(last_link_state[1])[0]
             orientation_error = self.target_x_orientation - tip_orientation_x
@@ -368,6 +381,7 @@ class PlanarReaching(SomoEnv.SomoEnv):
             self.target_start_pos,
             self.target_start_or,
             useFixedBase=1,
+            physicsClientId=self.physics_client,
         )
 
         if self.with_obstacle and self.obstacle_scale:
@@ -380,6 +394,7 @@ class PlanarReaching(SomoEnv.SomoEnv):
                 self.obstacle_or,
                 globalScaling=self.obstacle_scale,
                 useFixedBase=1,
+                physicsClientId=self.physics_client,
             )
 
     def get_cam_settings(self):
@@ -403,7 +418,10 @@ class PlanarReaching(SomoEnv.SomoEnv):
 
     def check_success(self):
         tip_pos = np.array(self.manipulators[0].get_backbone_positions())[-1][1:]
-        target_pos, target_or_quat = p.getBasePositionAndOrientation(self.target_id)
+        target_pos, target_or_quat = p.getBasePositionAndOrientation(
+            self.target_id,
+            physicsClientId=self.physics_client,
+        )
         dist = np.linalg.norm(tip_pos - target_pos[1:])
 
         return dist <= 1.0
