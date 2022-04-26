@@ -68,13 +68,13 @@ def vary_segment_number(manipulator_def_dict, n_seg_new):
         ][1]
         Ixx_new = (
             Ixx
-            / (mass * (y_dim**2 + segment_length**2))
-            * (mass_new * (y_dim**2 + segment_length_new**2))
+            / (mass * (y_dim ** 2 + segment_length ** 2))
+            * (mass_new * (y_dim ** 2 + segment_length_new ** 2))
         )
         Iyy_new = (
             Iyy
-            / (mass * (x_dim**2 + segment_length**2))
-            * (mass_new * (x_dim**2 + segment_length_new**2))
+            / (mass * (x_dim ** 2 + segment_length ** 2))
+            * (mass_new * (x_dim ** 2 + segment_length_new ** 2))
         )
     elif manipulator_def_dict["actuator_definitions"][0]["link_definition"][
         "shape_type"
@@ -84,13 +84,13 @@ def vary_segment_number(manipulator_def_dict, n_seg_new):
         ][0]
         Ixx_new = (
             Ixx
-            / (mass * (3 * r**2 + segment_length**2))
-            * (mass_new * (3 * r**2 + segment_length_new**2))
+            / (mass * (3 * r ** 2 + segment_length ** 2))
+            * (mass_new * (3 * r ** 2 + segment_length_new ** 2))
         )
         Iyy_new = (
             Iyy
-            / (mass * (3 * r**2 + segment_length**2))
-            * (mass_new * (3 * r**2 + segment_length_new**2))
+            / (mass * (3 * r ** 2 + segment_length ** 2))
+            * (mass_new * (3 * r ** 2 + segment_length_new ** 2))
         )
     else:
         assert False, (

@@ -16,8 +16,8 @@ def target_start_func_0(env):
     target_x_orientation = None
 
     def in_bounds(y, z):
-        inside_outer = ((y**2) / (ry_max**2)) + ((z**2) / (rz_max**2)) <= 1
-        outside_inner = ((y**2) / (ry_min**2)) + ((z**2) / (rz_min**2)) > 1
+        inside_outer = ((y ** 2) / (ry_max ** 2)) + ((z ** 2) / (rz_max ** 2)) <= 1
+        outside_inner = ((y ** 2) / (ry_min ** 2)) + ((z ** 2) / (rz_min ** 2)) > 1
         return inside_outer and outside_inner and z > 1
 
     while True:

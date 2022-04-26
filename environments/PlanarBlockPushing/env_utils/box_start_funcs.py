@@ -19,7 +19,7 @@ def box_start_func_2(env):
     min_dist = 0.5
 
     def in_bounds(x, y):
-        dist = np.sqrt((x**2) + (y**2))
+        dist = np.sqrt((x ** 2) + (y ** 2))
         return min_dist <= dist <= max_dist
 
     while True:
