@@ -76,7 +76,9 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
         return (obs, reward, done, info)
 
     def is_done(self):
-        box_pos, _ = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, _ = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         done = np.linalg.norm(box_pos) >= self.boundary
         return done
 
@@ -110,7 +112,9 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
         self.manipulator_states = self.get_manipulator_states(
             components=list(obs_flags.keys())
         )
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         self.manipulator_box_dist = np.zeros((self.n_manipulators, 3))
         for i, state in enumerate(self.manipulator_states):
             dist_vectors = state["positions"] - np.tile(
@@ -135,7 +139,11 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
             state = np.concatenate((state, self.target_pos[:2]))
 
         if "box_velocity" in obs_flags:
-            box_velocity = np.array(p.getBaseVelocity(bodyUniqueId=self.box_id)[0])
+            box_velocity = np.array(
+                p.getBaseVelocity(
+                    bodyUniqueId=self.box_id, physicsClientId=self.physics_client
+                )[0]
+            )
             state = np.concatenate((state, np.array(box_velocity)[:2]))
 
         if "positions" in obs_flags:
@@ -170,7 +178,9 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
             )
             tip_pos = positions[0][-1]
             if "tip_box_dist_vector" in obs_flags:
-                box_pos, _ = p.getBasePositionAndOrientation(self.box_id)
+                box_pos, _ = p.getBasePositionAndOrientation(
+                    self.box_id, physicsClientId=self.physics_client
+                )
                 state = np.concatenate((state, box_pos[:2] - tip_pos))
             if "tip_pos" in obs_flags:
                 state = np.concatenate((state, tip_pos))
@@ -217,7 +227,9 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
         reward_flags = self.run_config["reward_flags"]
 
         tip_pos = np.array(self.manipulators[0].get_backbone_positions())[-1][:2]
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         tip_box_dist = np.linalg.norm(tip_pos - box_pos[:2])
         box_target_dist = np.linalg.norm(box_pos[:2] - self.target_pos[:2])
 
@@ -288,8 +300,11 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
             self.box_start_pos,
             self.box_start_or,
             useFixedBase=0,
+            physicsClientId=self.physics_client,
         )
-        p.changeDynamics(self.box_id, -1, lateralFriction=2)
+        p.changeDynamics(
+            self.box_id, -1, lateralFriction=2, physicsClientId=self.physics_client
+        )
 
         object_urdf_path = os.path.join(
             os.path.dirname(__file__), "definitions/additional_urdfs/cube_target.urdf"
@@ -302,6 +317,7 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
                 [0, 0, 0]
             ),  # todo: consider making it possible to change box target orientation
             useFixedBase=1,
+            physicsClientId=self.physics_client,
         )
 
     def get_cam_settings(self):
@@ -324,7 +340,9 @@ class PlanarBlockPushing(SomoEnv.SomoEnv):
         return opt_str, cam_distance, cam_yaw, cam_pitch, cam_xyz_target
 
     def check_success(self):
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_target_dist = np.linalg.norm(box_pos[:2] - self.target_pos[:2])
 
         return box_target_dist <= 1.0

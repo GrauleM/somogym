@@ -187,12 +187,17 @@ class AntipodalGripper(SomoEnv.SomoEnv):
             self.manipulators, self.base_positions, self.base_orientations
         ):
             p.changeConstraint(
-                manipulator.baseConstraintUniqueId, position, orientation
+                manipulator.baseConstraintUniqueId,
+                position,
+                orientation,
+                physicsClientId=self.physics_client,
             )
 
         # apply an additional downwards force to the box that is a function of box height; this way, the higher we lift the box, the better the grasping force
 
-        box_pos, _ = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, _ = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_height = box_pos[2]
         # print(f"BOX HEIGHT: {box_height}")
         force = [
@@ -249,7 +254,9 @@ class AntipodalGripper(SomoEnv.SomoEnv):
         self.manipulator_states = self.get_manipulator_states(
             components=list(obs_flags.keys())
         )
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         self.manipulator_box_dist = np.zeros((self.n_manipulators, 3))
         for i, state in enumerate(self.manipulator_states):
             dist_vectors = state["positions"] - np.tile(
@@ -268,7 +275,11 @@ class AntipodalGripper(SomoEnv.SomoEnv):
                 state = np.concatenate((state, np.array(box_or)))
 
         if "box_velocity" in obs_flags:
-            box_velocity = np.array(p.getBaseVelocity(bodyUniqueId=self.box_id)[0])
+            box_velocity = np.array(
+                p.getBaseVelocity(
+                    bodyUniqueId=self.box_id, physicsClientId=self.physics_client
+                )[0]
+            )
             state = np.concatenate((state, np.array(box_velocity)))
 
         if "positions" in obs_flags:
@@ -359,7 +370,9 @@ class AntipodalGripper(SomoEnv.SomoEnv):
             return 0
 
         reward_flags = self.run_config["reward_flags"]
-        box_pos, _ = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, _ = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
         box_height = box_pos[2]
 
         reward = 0
@@ -404,8 +417,11 @@ class AntipodalGripper(SomoEnv.SomoEnv):
             self.box_start_pos,
             self.box_start_or_quat,
             useFixedBase=0,
+            physicsClientId=self.physics_client,
         )
-        p.changeDynamics(self.box_id, -1, lateralFriction=0.5)
+        p.changeDynamics(
+            self.box_id, -1, lateralFriction=0.5, physicsClientId=self.physics_client
+        )
 
     def get_cam_settings(self):
         opt_str = "--background_color_red=1.0 --background_color_green=1.0 --background_color_blue=1.0"
@@ -427,6 +443,8 @@ class AntipodalGripper(SomoEnv.SomoEnv):
         return opt_str, cam_distance, cam_yaw, cam_pitch, cam_xyz_target
 
     def check_success(self):
-        box_pos, box_or_quat = p.getBasePositionAndOrientation(self.box_id)
+        box_pos, box_or_quat = p.getBasePositionAndOrientation(
+            self.box_id, physicsClientId=self.physics_client
+        )
 
         return box_pos[2] >= 2

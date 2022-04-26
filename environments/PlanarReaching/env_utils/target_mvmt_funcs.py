@@ -14,7 +14,7 @@ def target_mvmt_func_0(env):
     min_dist = 0.2
 
     def in_bounds(x, y):
-        dist = np.sqrt((x**2) + (y**2))
+        dist = np.sqrt((x ** 2) + (y ** 2))
         return min_dist <= dist <= max_dist
 
     if True:  # env.step_count % 2 == 0:

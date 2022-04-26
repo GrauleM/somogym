@@ -303,7 +303,10 @@ class SomoEnv(gym.Env):
 
                 self.physics_client = p.connect(p.GUI, options=opt_str)
                 p.configureDebugVisualizer(
-                    p.COV_ENABLE_GUI, 0, lightPosition=[-10, 0, 30]
+                    p.COV_ENABLE_GUI,
+                    0,
+                    lightPosition=[-10, 0, 30],
+                    physicsClientId=self.physics_client,
                 )  # lightPosition=[8, 0, 10])
 
                 p.resetDebugVisualizerCamera(
@@ -311,6 +314,7 @@ class SomoEnv(gym.Env):
                     cameraYaw=cam_yaw,
                     cameraPitch=cam_pitch,
                     cameraTargetPosition=cam_xyz_target,
+                    physicsClientId=self.physics_client,
                 )
             else:
                 self.physics_client = p.connect(p.DIRECT)
@@ -319,16 +323,23 @@ class SomoEnv(gym.Env):
             self.first_run_done = True
 
         else:
-            p.resetSimulation()
+            p.resetSimulation(physicsClientId=self.physics_client)
 
         # setting up the physics client
-        p.setGravity(self.gravity[0], self.gravity[1], self.gravity[2])
-        p.setPhysicsEngineParameter(enableConeFriction=1)
+        p.setGravity(
+            self.gravity[0],
+            self.gravity[1],
+            self.gravity[2],
+            physicsClientId=self.physics_client,
+        )
+        p.setPhysicsEngineParameter(
+            enableConeFriction=1, physicsClientId=self.physics_client
+        )
         p.setRealTimeSimulation(
-            0
+            0, physicsClientId=self.physics_client
         )  # only if this is set to 0 and the simulation is done with explicit steps will the torque control work correctly
 
-        p.setTimeStep(self.bullet_time_step)
+        p.setTimeStep(self.bullet_time_step, physicsClientId=self.physics_client)
 
         # load the ground plane
         if self.ground_plane_height is not None:
@@ -339,9 +350,10 @@ class SomoEnv(gym.Env):
                 ),
                 basePosition=[0, 0, self.ground_plane_height],
                 flags=p.URDF_USE_MATERIAL_COLORS_FROM_MTL,
+                physicsClientId=self.physics_client,
             )
             p.changeDynamics(
-                planeId, -1, lateralFriction=1
+                planeId, -1, lateralFriction=1, physicsClientId=self.physics_client
             )  # set ground plane friction
 
         for (
@@ -389,11 +401,16 @@ class SomoEnv(gym.Env):
     # Environments will automatically close() themselves when garbage is collected or when the program exits.
     def close(self):
         # disconnect pybullet
-        p.disconnect()
+        p.disconnect(physicsClientId=self.physics_client)
+        self.first_run_done = (
+            False  # (bcs after closing, physics needs to be reinstantiated)
+        )
+        self.physics_client = None
 
         # delete urdf files
         for manipulator in self.manipulators:
             # todo: add try/except in case this urdf was already deleted
+            # todo: make sure a close in one env doesnt delete a urdf file that is needed by another env still
             if os.path.isfile(manipulator.manipulator_definition.urdf_filename):
                 os.remove(manipulator.manipulator_definition.urdf_filename)
 

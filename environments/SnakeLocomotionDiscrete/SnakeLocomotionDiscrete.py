@@ -98,7 +98,10 @@ class SnakeLocomotionDiscrete(SomoEnv.SomoEnv):
             )
             # todo: replace try / except with proper handling of the different cases for self.target_id
             try:
-                p.removeBody(self.target_id)
+                p.removeBody(
+                    self.target_id,
+                    physicsClientId=self.physics_client,
+                )
             except:
                 pass
             self.target_id = p.loadURDF(
@@ -106,6 +109,7 @@ class SnakeLocomotionDiscrete(SomoEnv.SomoEnv):
                 self.target_pos,
                 p.getQuaternionFromEuler([0, 0, 0]),
                 useFixedBase=1,
+                physicsClientId=self.physics_client,
             )
 
         obs, reward, done, info = super().step(action=action)
@@ -293,6 +297,7 @@ class SnakeLocomotionDiscrete(SomoEnv.SomoEnv):
             self.target_pos,
             p.getQuaternionFromEuler([0, 0, 0]),
             useFixedBase=1,
+            physicsClientId=self.physics_client,
         )
 
     def get_cam_settings(self):

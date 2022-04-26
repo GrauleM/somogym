@@ -1,7 +1,7 @@
 gym==0.18.3
 pybullet==3.1.7
 sorotraj==0.14
-somo @ git+https://github.com/graulem/somo@84f25a742a0212e49694dd85030cc29fdf08ce3e
+somo @ git+https://github.com/graulem/somo@d65eaf19336898139a5a80a0e5f59d2bedbebfe9
 pytest==6.2.4
 stable-baselines3==1.0
 torch==1.8.1
