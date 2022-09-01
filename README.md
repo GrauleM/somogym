@@ -28,7 +28,7 @@ In /sample_policies, we define trajectories for each task. These trajectories ca
 
 Run tasks with defined control trajectories using /sample_policies/run_traj.py. Not every trajectory will work on every environment, as action spaces are not constant across tasks. 
 
-To train and evaluate RL policies on SoMoGym environments, check out [SoMo-RL](https://github.com/GrauleM/somo-rl/) (still in private beta).
+To train and evaluate RL policies on SoMoGym environments, check out [SoMo-RL](https://github.com/GrauleM/somo-rl/).
 
 
 ## Installation
